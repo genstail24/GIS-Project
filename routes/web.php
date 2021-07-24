@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\MapController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MapController::class, 'index'])->name('maps.index');
