@@ -13,5 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\AuthController;
 
-Route::get('/', [MapController::class, 'index'])->name('maps.index');
+Route::group(['middleware' => 'auth'], function() {
+	Route::get('/', [MapController::class, 'index'])->name('home');
+	// Route::resource('/categories', CategoryController::class);
+});
+Auth::routes();
+

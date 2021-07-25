@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.templates.main')
 
 @push('custom-style')
 <!-- select2 -->
@@ -209,7 +209,7 @@
     const zoomMarkerOnClick = (e) => {
       // map.flyTo(e.target.getLatLng(), 12.5);
       clearActiveArea();
-      const marker = findMarker(e.target._leaflet_id);
+      const marker = findMarker(e._leaflet_id);
       const circle = L.circle(e.target.getLatLng(), {radius: 5000, color: 'red'}).addTo(map);
       map.flyTo(e.target.getLatLng(), 12.5);
       marker.openPopup();

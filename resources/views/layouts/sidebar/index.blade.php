@@ -1,10 +1,10 @@
 <nav id="sidebar" class="active">
-    <div class="sidebar-header">
-        <img src="{{ asset('assets/img/bootstraper-logo.png'); }}" alt="bootraper logo" class="app-logo">
+    <div class="sidebar-header text-dark">
+        <h1>Gis Project</h1>
     </div>
     <ul class="list-unstyled components text-secondary">
         <li>
-            <a href="{{ route('maps.index'); }}"><i class="fas fa-map"></i>Map</a>
+            <a href="{{ route('home'); }}"><i class="fas fa-map"></i>Map</a>
         </li>
 
         <li>
