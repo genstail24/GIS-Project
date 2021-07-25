@@ -37,18 +37,12 @@ class DangerousAreaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'latitude' => 'required',
             'longitude' => 'required',
             'disaster_category_id' => 'required'
         ]);
-
-        $data = DangerousArea::create([
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-            'disaster_category_id' => $request->disaster_category_id
-        ]);
-        
+        $data = DangerousArea::create($validatedData);
         return new DangerousAreaResource($data);
     }
 
@@ -83,7 +77,15 @@ class DangerousAreaController extends Controller
      */
     public function update(Request $request, DangerousArea $dangerousArea)
     {
-        //
+        $validatedData = $request->validate([
+            'latitude' => 'required',
+            'longitude' => 'required'
+        ]);
+        $dangerousArea->update($validatedData);
+        return response()->json([
+            'message' => 'data sucessfully updated',
+            'data' => new DangerousAreaResource($dangerousArea)
+        ]);
     }
 
     /**
@@ -104,8 +106,23 @@ class DangerousAreaController extends Controller
     }
 
     public function filterAreas(Request $request){
+
+        $query = DangerousArea::query();
+        $search = $request->search;
         $categories = $request->categories;
-        $data = DangerousArea::whereIn('disaster_category_id', $categories)->get();
+
+        if(!empty($categories)){
+            $query->whereIn('disaster_category_id', $categories)->get();
+        }
+        if(!empty($search)){
+            $query->isWithinMaxDistance($search, 10)->get();
+        }
+
+        if(empty($categories) && empty($search)){
+            $data = [];
+        }else{
+            $data = $query->get();
+        }
 
         return DangerousAreaResource::collection($data);
     }

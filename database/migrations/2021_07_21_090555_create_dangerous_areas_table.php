@@ -20,7 +20,7 @@ class CreateDangerousAreasTable extends Migration
             $table->unsignedBigInteger('disaster_category_id');
             $table->timestamps();
 
-            $table->foreign('disaster_category_id')->references('id')->on('disaster_categories')->onDeleteCascade();
+            $table->foreign('disaster_category_id')->references('id')->on('disaster_categories')->onDelete('cascade');
         });
     }
 
