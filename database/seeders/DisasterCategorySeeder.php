@@ -15,8 +15,7 @@ class DisasterCategorySeeder extends Seeder
     public function run()
     {
         $disasterCategories = [
-            'Natural disaster', //bencana alam
-            'Earthquake', //banjir
+            'Earthquake', //Gempa Bumi
             'flooding', //Banjir
             'Hurricane', // Angin topan
             'Storm', // Badai
