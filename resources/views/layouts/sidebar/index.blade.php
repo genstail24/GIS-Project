@@ -4,11 +4,11 @@
     </div>
     <ul class="list-unstyled components text-secondary">
         <li>
-            <a href="{{ route('home'); }}"><i class="fas fa-map"></i>Map</a>
+            <a href="{{ route('home') }}"><i class="fas fa-map"></i>Map</a>
         </li>
 
         <li>
-            <a href="dashboard.html"><i class="fas fa-list"></i>Categories</a>
+            <a href="{{ route('disaster-categories.index') }}"><i class="fas fa-list"></i>Categories</a>
         </li>
 <!--         <li>
             <a href="#uielementsmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-layer-group"></i> UI Elements</a>

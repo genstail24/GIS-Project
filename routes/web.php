@@ -13,11 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\MapController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DisasterCategoryController;
+use App\Http\Controllers\DangerousAreaController;
 
 Route::group(['middleware' => 'auth'], function() {
+	// map page
 	Route::get('/', [MapController::class, 'index'])->name('home');
-	// Route::resource('/categories', CategoryController::class);
+
+	// disaster categories
+	Route::resource('/disaster-categories', DisasterCategoryController::class)->name('*', 'disaster-categories');
+
+	// dangeorus areas
+	Route::get('dangerous-areas', [DangerousAreaController::class, 'index'])->name('dangerous_areas.index');
+	Route::post('dangerous-areas', [DangerousAreaController::class, 'store'])->name('dangerous_areas.store');
+	Route::put('dangerous-areas/{dangerousArea}', [DangerousAreaController::class, 'update'])->name('dangerous_areas.update');
+	Route::delete('dangerous-areas/{dangerousArea}', [DangerousAreaController::class, 'destroy'])->name('dangerous_areas.store');
+	Route::post('filter-areas', [DangerousAreaController::class, 'filterAreas']);
+	Route::get('get-disaster-categories', [disasterCategoryController::class, 'ajaxIndex']);
 });
+
 Auth::routes();
 

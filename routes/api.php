@@ -3,8 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\DangerousAreaController;
-use App\Http\Controllers\disasterCategoryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,10 +19,4 @@ use App\Http\Controllers\disasterCategoryController;
 // });
 
 
-Route::get('dangerous-areas', [DangerousAreaController::class, 'index'])->name('dangerous_areas.index');
-Route::post('dangerous-areas', [DangerousAreaController::class, 'store'])->name('dangerous_areas.store');
-Route::delete('dangerous-areas/{dangerousArea}', [DangerousAreaController::class, 'destroy'])->name('dangerous_areas.store');
-Route::post('filter-areas', [DangerousAreaController::class, 'filterAreas']);
-
-Route::get('disaster-categories', [disasterCategoryController::class, 'index']);
 
