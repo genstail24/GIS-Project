@@ -16,6 +16,8 @@
 </style>
 @endpush
 
+@section('title', '| Disaster Category Management')
+
 @section('content') 
 <div class="container-fluid main-content ">
   <div class="loading-container d-flex justify-content-center align-items-center" id="loading-container">
@@ -95,7 +97,7 @@
                       <span aria-hidden="true">&times;</span>
                   </button>
               </div>
-              <form method="POST">
+              <form method="POST" id="create-form">
 	              <div class="form-group">
 	                <label for="name">Name</label>
 	                <input type="text" class="form-control" name="name" id="name">
@@ -105,7 +107,7 @@
 
 	              </div>
 	          		<div class="form-group">
-	          			<button type="button" class="btn btn-success" id="SubmitCreateDisasterCategory">Create</button>
+	          			<button type="submit" class="btn btn-success" id="SubmitCreateDisasterCategory">Create</button>
 	          		</div>
           		</form>
           </div>
@@ -140,7 +142,7 @@
                       <span aria-hidden="true">&times;</span>
                   </button>
               </div>
-              <form>
+              <form method="POST" id="edit-form">
 	              <div class="form-group">
 	                <label for="name">Name</label>
 	                <input type="text" class="form-control" name="edit-name" id="edit-name">
@@ -150,7 +152,7 @@
 
 	              </div>
 	          		<div class="form-group">
-	          			<button type="button" class="btn btn-success" id="SubmitEditDisasterCategory">Edit</button>
+	          			<button type="submit" class="btn btn-success" id="SubmitEditDisasterCategory">Edit</button>
 	          		</div>
           		</form>
           </div>
@@ -257,7 +259,7 @@
           url: "disaster-categories/" + id,
           method: 'DELETE',
           success: function(response){
-            $('.datatable').DataTable().ajax.reload();
+            renderSuccessFlashMessage(response.message)
           },
           error: function(error){
           	console.log(error)
@@ -266,7 +268,7 @@
     });
 
     // post data
-	  $('#SubmitCreateDisasterCategory').click(function(e) {
+	  $('#create-form').on('submit', function(e) {
       e.preventDefault();
       $.ajaxSetup({
           headers: {
@@ -296,7 +298,7 @@
     });
 
     // Update  Ajax request.
-    $('#SubmitEditDisasterCategory').click(function(e) {
+    $('#edit-form').on('submit', function(e) {
         e.preventDefault();
         $.ajaxSetup({
             headers: {

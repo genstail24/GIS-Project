@@ -1,11 +1,13 @@
 @extends('layouts.templates.guest')
 
+@section('title', '| Register')
+
 @section('content')
 <div class="auth-content">
     <div class="card">
         <div class="card-body text-center">
             <div class="mb-4">
-                <h1>Gis Project</h1>
+                <h1>GIS Project</h1>
             </div>
             <h6 class="mb-4 text-muted">Create new account</h6>
             <form action="{{ route('register') }}" method="POST">

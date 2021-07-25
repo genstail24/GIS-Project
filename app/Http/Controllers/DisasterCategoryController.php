@@ -10,6 +10,10 @@ use DataTables;
 
 class DisasterCategoryController extends Controller
 {
+    public function __construct() {
+        $this->middleware('is.admin')->except(['show', 'ajaxIndex']);
+    }
+
     /**
      * Display a listing of the resource.
      *

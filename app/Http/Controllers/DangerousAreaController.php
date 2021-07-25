@@ -8,6 +8,10 @@ use App\Http\Resources\DangerousArea as DangerousAreaResource;
 
 class DangerousAreaController extends Controller
 {
+    public function __construct() {
+        $this->middleware('is.admin')->except(['index', 'filterAreas']);
+    }
+
     /**
      * Display a listing of the resource.
      *

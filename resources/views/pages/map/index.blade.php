@@ -67,6 +67,8 @@
 </style>
 @endpush
 
+@section('title', '| Disaster Prone Area Map')
+
 @section('content')
 <div class="container-fluid main-content">
   <div class="loading-container d-flex flex-column flex-md-row ml-0 ml-md-2 justify-content-center align-items-center" id="loading-container">
@@ -124,6 +126,7 @@
       <div id="my-map" class="my-map"></div>
     </div>
   </div>
+  @if(Auth::user()->is_admin)
   <div class="row mt-2">
     <div class="col-12 d-flex">
       <div class="radio-categories-container d-flex w-100">
@@ -141,6 +144,8 @@
       </div>
     </div>
   </div>
+  @endif
+
 </div>
 @endsection
 
@@ -249,8 +254,7 @@
 
     document.querySelector('#search-input').addEventListener('input', function(e){
       clearInterval(typingInterval)
-      const {value} = e.target
-      console.log(this.target, e)
+      const {value} = e.target;
       typingInterval = setInterval(async () => {
         // if(value == '') searchLocationFilter = '';
         clearInterval(typingInterval)
@@ -280,7 +284,10 @@
         searchInputElement.value = value;
         //search to db
         searchLocationFilter = {latitude, longitude}
-        searchArea = L.circle([latitude, longitude], {radius: radius, color: 'blue'}).addTo(map);
+        searchArea = L
+          .circle([latitude, longitude], {radius: radius, color: 'blue'})
+          .addTo(map)
+          .bindPopup(`<h3 class="text-center">${value}</h3> <br> <h5 class="text-center">Disaster prone area of this blue area in radius of 10km</h3>`);
         map.flyTo(searchArea.getLatLng(), zoom); 
         await getAreas();
         if(areasData.length < 1) {
@@ -411,6 +418,7 @@
         marker.bindPopup(`<div class="marker-popup">
                         <div class="d-flex justify-content-between">
                           <p>${category_name}</p>
+                          @if(Auth::user()->is_admin)
                           <div class="d-flex">
                             <button class="btn btn-danger popup-area-delete-button" data-id="${id}" data-latitude="${latitude}" data-longitude="${longitude}" data-leaflet_id="${marker._leaflet_id}">
                               <i class="fas fa-trash"></i>
@@ -419,6 +427,7 @@
                               <i class="fas fa-edit"></i>
                             </button>
                           </div>
+                          @endif
                         </div>
                         <small>[${latitude}, ${longitude}]</small>
                       </div>`);
@@ -541,6 +550,7 @@
         const {id, leaflet_id} = e.target.dataset;
         const editedArea = findArea(leaflet_id);
         if(confirm('set new marker position by clicking on the map')) {
+          if(searchArea) map.removeLayer(searchArea);
           editedMarker.id = id;
           editedMarker.leaflet_id= leaflet_id;
           renderMarker([editedArea]);
@@ -558,7 +568,7 @@
     */
     const disasterCategoryOptionData = $.map(disasterCategoryFilterData, function (obj) {
       obj.id = obj.id;
-      obj.text = obj.name + ` (${obj.amount_of_dangerous_areas})`;
+      obj.text = obj.name;
       obj.id = obj.id;
       return obj;
     });

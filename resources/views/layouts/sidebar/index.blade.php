@@ -1,15 +1,16 @@
 <nav id="sidebar" class="active">
     <div class="sidebar-header text-dark">
-        <h1>Gis Project</h1>
+        <h1>GIS Project</h1>
     </div>
     <ul class="list-unstyled components text-secondary">
         <li>
             <a href="{{ route('home') }}"><i class="fas fa-map"></i>Map</a>
         </li>
-
+        @if(Auth::user()->is_admin)
         <li>
-            <a href="{{ route('disaster-categories.index') }}"><i class="fas fa-list"></i>Categories</a>
+            <a href="{{ route('disaster-categories.index') }}"><i class="fas fa-list"></i>Disaster Categories</a>
         </li>
+        @endif
 <!--         <li>
             <a href="#uielementsmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-layer-group"></i> UI Elements</a>
             <ul class="collapse list-unstyled" id="uielementsmenu">

@@ -1,9 +1,11 @@
 @extends('layouts.templates.guest')
 
+@section('title', '| Login')
+
 @section('content')
 <div class="card-body text-center">
   <div class="mb-4">
-      <h1>Project Gis</h1>
+      <h1>GIS Project</h1>
   </div>
   <h6 class="mb-4 text-muted">Login to your account</h6>
   <form  method="POST" action="{{ route('login') }}">

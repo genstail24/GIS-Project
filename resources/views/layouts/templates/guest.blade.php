@@ -14,7 +14,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Gis Project</title>
+    <title>GIS Project @yield('title', '')</title>
     
     <!-- styles -->
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css'); }}" rel="stylesheet">
