@@ -14,7 +14,10 @@ class DisasterCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $disasterCategories = DisasterCategory::all();
+        return response()->json([
+            'data' => $disasterCategories
+        ], 200);
     }
 
     /**
@@ -82,4 +85,6 @@ class DisasterCategoryController extends Controller
     {
         //
     }
+ 
+
 }

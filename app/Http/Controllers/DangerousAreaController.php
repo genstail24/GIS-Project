@@ -102,4 +102,11 @@ class DangerousAreaController extends Controller
             'data' => $previousData
         ], 200);
     }
+
+    public function filterAreas(Request $request){
+        $categories = $request->categories;
+        $data = DangerousArea::whereIn('disaster_category_id', $categories)->get();
+
+        return DangerousAreaResource::collection($data);
+    }
 }
