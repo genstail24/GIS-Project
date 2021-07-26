@@ -1,5 +1,5 @@
 # GIS Project for Finding Disaster Prone Areas
-Geographic Information System for finding disaster prone areas. It was created using [Laravel](https://laravel.com), [Oprenstreetmamp API](https://openstreetmap.org), and [Leaflet JS](https://leafletjs.com). 
+Geographic Information System for finding disaster prone areas. It was created using [Laravel](https://laravel.com), [Oprenstreetmap API](https://openstreetmap.org), and [Leaflet JS](https://leafletjs.com). 
 
 ## Demo
 [http://gis-disaster-area.herokuapp.com](http://gis-disaster-area.herokuapp.com)
