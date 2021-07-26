@@ -278,7 +278,6 @@
     searchResultElement.addEventListener('click', async function(e){
       if(e.target.classList.contains('sugestion')){
         if(searchArea) map.removeLayer(searchArea)
-        console.log(e.target.dataset)
         const {id, latitude, longitude, value} = e.target.dataset;
         searchResultElement.innerHTML = '';
         searchInputElement.value = value;
@@ -291,7 +290,11 @@
         map.flyTo(searchArea.getLatLng(), zoom); 
         await getAreas();
         if(areasData.length < 1) {
-          alert('Data is not found!')
+          alert('There are no disaster prone area here!')
+          searchArea.bindPopup(`
+            <h3 class="text-center">${value}</h3> 
+            <h5 class="text-center">There are no disaster prone area here!</h3>`)
+          searchArea.openPopup();
         }
       }
     })
@@ -300,6 +303,7 @@
       searchInputElement.value = '';
       searchLocationFilter = '';
       map.removeLayer(searchArea);
+      searchArea = null;
       getAreas();
     });
 
@@ -482,7 +486,6 @@
     }
 
     areaListContainer.addEventListener('click', async function(e){
-      console.log(e.target)
       // category name detail
       if(e.target.classList.contains('category-name') === true){
         e.preventDefault();
@@ -512,7 +515,11 @@
       clearActiveArea();
       const disasterCategoryId = getCheckedRadioValue();
       const {id, lat, lng} = e.latlng;
-      if(disasterCategoryId){
+      if(disasterCategoryId){ 
+        if(searchArea) {
+          alert('Clear search input first!');
+          return;
+        };
         resetData();
         const response = await postData('dangerous-areas', {
           latitude: lat, 
@@ -526,21 +533,25 @@
 
       if(isEditing === true && editedMarker.id){
         if(searchArea) map.removeLayer(searchArea);
+        resetData();
         const response = await updateMarker(editedMarker.id, {
           latitude: lat,
           longitude: lng
         });
-        resetData();
         editedMarker.id = null;
         editedMarker.leaflet_id = null;
         isEditing = false;
         areasData = [response.data.data];
-        renderMarker();
+        await renderMarker();
         focusOnMarker(areasData[0].leaflet_id);
       }
     } );
 
-    map.on('popupopen', function() {  
+    map.on('popupopen', function(e) {
+      if(searchArea && searchArea._leaflet_id && getCheckedRadioValue() && !isEditing){
+        alert('Clear search input first!')
+      } 
+
       $('.popup-area-delete-button').click(function(e){ 
         const {id, leaflet_id} = e.target.dataset;
         deleteMarkerArea(leaflet_id, id, 0)
