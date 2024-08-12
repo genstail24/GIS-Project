@@ -2,7 +2,7 @@
 Geographic Information System for finding disaster prone areas. It was created using [Laravel](https://laravel.com), [Oprenstreetmap API](https://openstreetmap.org), and [Leaflet JS](https://leafletjs.com). 
 
 ## Demo
-[http://gis-disaster-area.herokuapp.com](http://gis-disaster-area.herokuapp.com)
+[https://gis.genstail24.my.id/](https://gis.genstail24.my.id/)
 
 ## Installation
 Clone this repo to your computer:
